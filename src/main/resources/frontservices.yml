@@ -1,0 +1,61 @@
+openapi: 3.0.1
+info:
+  title: VetManager
+  version: 1.0.0
+  description: VetManager frontservices API
+servers:
+  - url: http://localhost:8080/v1
+paths:
+  /veterinary:
+    get:
+      tags:
+        - veterinary
+      summary: returns all the veterinary
+      operationId: getAllVet
+      responses:
+        "200":
+          description: success
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VeterinarySummary'
+    post:
+      tags:
+        - veterinary
+      summary: create a new veterinary entry
+      operationId: createVet
+      requestBody:
+        description: new vet
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CreateVetRequest'
+      responses:
+        "201":
+          description: created
+
+components:
+  schemas:
+    VeterinarySummary:
+      type: object
+      description: the summary of a veterinary
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+
+    CreateVetRequest:
+      type: object
+      description: new vet dto
+      properties:
+        email:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        passwd:
+          type: string
